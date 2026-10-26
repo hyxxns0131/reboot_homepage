@@ -1,0 +1,22 @@
+{% macro product_card(product, number=1) %}
+<article class="product-card" data-format="{{ product.line|lower }}" data-edition="{{ product.edition|lower }}">
+  <a class="product-visual tone-{{ product.default_flavor|lower }} {{ 'is-balance' if product.is_balance }} {{ product.line|lower }}" href="{{ url_for('products.detail', slug=product.slug) }}">
+    <span class="product-index">0{{ number }} / THE COLLECTION</span><span class="product-edition">{{ product.edition }}</span>
+    <img loading="lazy" src="{{ url_for('media', filename=product.images[product.default_flavor]) }}" alt="{{ product.name }} in {{ product.default_flavor }}">
+    <span class="visual-label">{{ product.default_flavor|upper }}</span><span class="product-arrow" aria-hidden="true">↗</span>
+  </a>
+  <div class="product-info"><div><span class="eyebrow">{{ product.format }}</span><h3><a href="{{ url_for('products.detail', slug=product.slug) }}">{{ product.short_name }}</a></h3></div><span class="product-price">{{ product.options[0].price_usd|float|usd }}<small>Sample price</small></span></div>
+  <div class="product-card-bottom"><span class="flavor-dots" aria-label="Available in lime, lemon, cherry"><i class="dot-lime"></i><i class="dot-lemon"></i><i class="dot-cherry"></i></span><span>3 flavors. Your call.</span></div>
+</article>
+{% endmacro %}
+
+{% macro field(input, autocomplete='') %}
+<div class="form-field">{{ input.label }}{{ input(autocomplete=autocomplete, aria_describedby=input.id ~ '-errors' if input.errors else none) }}{% if input.errors %}<ul class="field-errors" id="{{ input.id }}-errors">{% for error in input.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}</div>
+{% endmacro %}
+
+{% macro check(input) %}<div class="check-field">{{ input() }}{{ input.label }}</div>{% for error in input.errors %}<p class="field-errors">{{ error }}</p>{% endfor %}{% endmacro %}
+
+{% macro article_card(article) %}
+<a class="article-card" href="{{ url_for('main.article', slug=article.slug) }}"><div class="article-image"><img loading="lazy" src="{{ url_for('media', filename=article.image) }}" alt="Reboot product collection"><span class="round-arrow">↗</span></div><span class="eyebrow">{{ article.category }}</span><h3>{{ article.title }}</h3><p>{{ article.description }}</p></a>
+{% endmacro %}
+

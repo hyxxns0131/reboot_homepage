@@ -1,0 +1,3 @@
+{% extends 'core/base.html' %}{% from 'core/macros.html' import article_card %}{% block title %}The Reboot Edit{% endblock %}
+{% block content %}<section class="section-shell page-section"><div class="page-intro"><span class="eyebrow">A FRESH PERSPECTIVE, ON REPEAT</span><h1>THE REBOOT <span class="serif-word">edit.</span></h1><p>Flavor notes, little rituals, and a look into our world.</p></div><div class="article-grid">{% for article in articles %}{{ article_card(article) }}{% endfor %}</div></section>{% endblock %}
+

@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% from 'core/macros.html' import article_card %}
+{% block body_class %}home-page{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{{ url_for('static', filename='core/home/styles.css') }}">
+<script src="{{ url_for('static', filename='core/home/app.js') }}" defer></script>
+<script src="{{ url_for('static', filename='core/js/flavor-carousel.js') }}" defer></script>{% endblock %}
+{% block content %}
+<section class="stage" data-scene="0" aria-label="Meet Reboot">
+  <div class="stage-pin">
+    <div class="stage-bg" aria-hidden="true"></div>
+    <div class="mega" aria-hidden="true">
+      <p class="mega-line" data-zone="bottom"><span class="mega-inner"><span class="w">RESTART</span> <span class="w">YOUR DAY.</span></span></p>
+      <p class="mega-line" data-zone="top"><span class="mega-inner"><span class="w">TAKE A</span> <span class="w">SIP.</span></span></p>
+      <p class="mega-line" data-zone="top"><span class="mega-inner"><span class="w">MAKE IT</span> <span class="w">A BITE.</span></span></p>
+      <p class="mega-line" data-zone="top"><span class="mega-inner"><span class="w">FROM</span> <span class="w">KOREA.</span></span></p>
+    </div>
+    <div id="bottle" class="bottle" aria-hidden="true">
+      {# Scene 1: the drink takes the flavor of the last jelly that dropped in (lime, then lemon, then cherry). #}
+      {% for flavor in ['lime', 'lemon', 'cherry'] %}<img {{ 'class=is-on' if loop.first }} data-shot="0-{{ loop.index0 }}" src="{{ url_for('static', filename='core/img/stage/bottle-' ~ flavor ~ '-34.webp') }}" alt="" width="491" height="900" {{ 'fetchpriority=high' if loop.first }}>
+      {% endfor %}<img data-shot="1" src="{{ url_for('static', filename='core/img/stage/bottle-cherry-front.webp') }}" alt="" width="503" height="900">
+      <img data-shot="2" src="{{ url_for('static', filename='core/img/stage/jelly-lime-front.webp') }}" alt="" width="611" height="420">
+      <img data-shot="3" src="{{ url_for('static', filename='core/img/stage/lineup.webp') }}" alt="" width="1247" height="1040">
+    </div>
+    <div class="dive" aria-hidden="true">
+      {% for flavor in ['lime', 'lemon', 'cherry'] %}<div class="dive-jelly"><img src="{{ url_for('static', filename='core/img/stage/jelly-' ~ flavor ~ '-34.webp') }}" alt="" width="640" height="468"></div>{% endfor %}
+    </div>
+    <div class="notes" aria-hidden="true">
+      {% for flavor, shape in [('Lime', 'The boot'), ('Lemon', 'The lasso'), ('Cherry', 'The hat')] %}<div class="note note-{{ flavor|lower }}"><img src="{{ url_for('static', filename='core/img/stage/jelly-' ~ flavor|lower ~ '-front.webp') }}" alt="" width="611" height="420" loading="lazy"><b>{{ flavor }}</b><span>{{ shape }}</span></div>{% endfor %}
+    </div>
+    <div class="panels">
+      <div class="panel is-on"><span class="eyebrow">01 — MEET REBOOT</span><h3>A little ritual for what’s next.</h3><p>Fruit-forward drinks and jellies from ALDICOM. Lime, lemon, and cherry. Pick your mood.</p><a class="panel-link" href="#collection">Find your Reboot <span>↓</span></a></div>
+      <div class="panel"><span class="eyebrow">02 — THE DRINK</span><h3>Reboot Drink</h3><p>A non-carbonated, pocket-sized bottle in Original and Balance. One bottle, or a box of three.</p><a class="panel-link" href="{{ url_for('products.detail', slug='drink-original') }}">Meet the drink <span>↗</span></a></div>
+      <div class="panel"><span class="eyebrow">03 — THE JELLY</span><h3>Reboot Jelly</h3><p>Individually wrapped jellies with a little attitude: the lime boot, the lemon lasso, and the cherry hat.</p><a class="panel-link" href="{{ url_for('products.detail', slug='jelly-original') }}">Meet the jelly <span>↗</span></a></div>
+      <div class="panel"><span class="eyebrow">04 — ABOUT US</span><h3>Made by ALDICOM.</h3><p>Reboot is the US line from ALDICOM, a Korean company. We bring a Korean after-party ritual to your everyday, with a fresh perspective.</p><a class="panel-link" href="{{ url_for('main.story') }}">Our story <span>↗</span></a></div>
+    </div>
+    <nav class="scenes" aria-label="Jump to a chapter">{% for label in ['Restart', 'Drink', 'Jelly', 'ALDICOM'] %}<button type="button" data-go="{{ loop.index0 }}" {{ 'aria-current=true' if loop.first }}><span>0{{ loop.index }}</span><b>{{ label }}</b></button>{% endfor %}</nav>
+  </div>
+</section>
+<section class="plate-section section-shell" data-plate>
+  <div class="plate-copy"><span class="eyebrow">TRY IT · A LITTLE SPRITZ</span><h2>GIVE IT A LITTLE <span class="serif-word">sparkle.</span></h2><p class="plate-phrase" data-phrase aria-live="polite">Tap the button and watch Reboot add a fresh little sparkle.</p>
+    <div class="plate-actions"><button type="button" class="btn btn-neon" data-spray><span data-label-first>Psst, give it a spritz</span><span data-label-again hidden>One more</span> <span aria-hidden="true">✳</span></button><button type="button" class="btn btn-outline btn-small" data-reset>Reset</button></div>
+    <p class="plate-count"><span>Sprays</span> <b data-count>0</b></p>
+    <ul hidden data-phrases>{% for phrase in ['A little sparkle, instantly.', 'Fresh start, coming right up.', 'Look at that glow.', 'Lime-bright. Lemon-light. Cherry-sweet.', 'Your jelly says thank you.', 'Again? We like your style.', 'That’s the Reboot glow.', 'Small ritual, big mood.', 'Nice rhythm. Keep going.', 'Ten sprays. Officially a ritual.', 'Shine on.', 'Fresh looks good on you.', 'Restart, repeat.', 'Brighter by the minute.', 'Okay, now it’s glowing.', 'You’ve got the touch.', 'Almost a sparkle storm.', 'Fresh perspective, unlocked.', 'One more for luck.', 'Twenty! You’re a natural.'] %}<li>{{ phrase }}</li>{% endfor %}</ul>
+    <span hidden data-phrase-default>Still fresh. Still you.</span><span hidden data-phrase-intro>Tap the button and watch Reboot add a fresh little sparkle.</span>
+    <p class="fineprint">Just for fun. An animation, not a serving suggestion.</p>
+  </div>
+  <div class="plate-stage">
+    <img class="plate-photo" src="{{ url_for('media', filename='Reboot_Jelly/Reboot_Jelly_Image/오리지널_패키지.jpg') }}" alt="Reboot Original jellies around their pouch" loading="lazy">
+    <img class="plate-bottle" src="{{ url_for('static', filename='core/img/stage/bottle-lime-front.webp') }}" alt="" width="530" height="900" loading="lazy">
+    <canvas id="plate-mist" aria-hidden="true"></canvas>
+  </div>
+</section>
+<div class="marquee" aria-label="Restart your day. Find your Reboot."><div class="marquee-track" aria-hidden="true">{% for i in range(4) %}<span>RESTART YOUR DAY</span><span class="marquee-star">✳</span><span class="marquee-outline">FIND YOUR REBOOT</span><span class="marquee-star">✳</span>{% endfor %}</div></div>
+<section class="intro-section section-shell reveal"><span class="eyebrow"><span class="small-cross">✳</span> THE REBOOT STATE OF MIND</span><div><h2>LIFE DOESN’T HAVE<br>A REPLAY BUTTON.<br><span class="muted-text">BUT IT HAS A REBOOT.</span></h2><div class="intro-bottom"><p>Born from ALDICOM in Korea. Made for your everyday rituals in the US. Fruit-forward drinks and jellies, a fresh perspective, and a little moment that’s all yours.</p><a class="round-arrow" href="{{ url_for('main.story') }}" aria-label="Discover our story">↗</a></div></div></section>
+{% set flavor_colors = {'Lime': ('#cbf498', '#ddf8bd'), 'Lemon': ('#f8e88d', '#fbf0b9'), 'Cherry': ('#f4abc0', '#f8cad7')} %}
+{% set ring = [] %}{% for product in products %}{% for flavor in ['Lime', 'Lemon', 'Cherry'] %}{% if flavor in product.flavors %}{% set _ = ring.append((product, flavor)) %}{% endif %}{% endfor %}{% endfor %}
+<section class="flavor-stage" id="collection" data-flavor-carousel style="--stage-bg: {{ flavor_colors[ring[0][1]][0] }}">
+  <div class="flavor-head section-shell"><div><span class="eyebrow">FOUR WAYS TO START FRESH</span><h2>FIND YOUR <span class="serif-word">Reboot.</span></h2></div><a class="inline-link" href="{{ url_for('products.index') }}">Explore all <span>↗</span></a></div>
+  <div class="flavor-body">
+  <div class="flavor-viewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Reboot flavors. Use left and right arrow keys to rotate.">
+    <div class="flavor-ring">
+      {% for product, flavor in ring %}{% set slug = product.slug ~ '-' ~ flavor|lower %}<div class="flavor-item" data-index="{{ loop.index0 }}" data-color="{{ flavor_colors[flavor][1 if product.is_balance else 0] }}" data-url="{{ url_for('products.detail', slug=product.slug, flavor=flavor) }}"><div class="flavor-float"><img class="flavor-img flavor-side flavor-side-left" src="{{ url_for('static', filename='core/img/carousel/' ~ slug ~ '/side-left.webp') }}" alt="" width="720" height="900" draggable="false" loading="lazy"><img class="flavor-img flavor-side flavor-side-right" src="{{ url_for('static', filename='core/img/carousel/' ~ slug ~ '/side.webp') }}" alt="" width="720" height="900" draggable="false" loading="lazy"><img class="flavor-img flavor-center" src="{{ url_for('static', filename='core/img/carousel/' ~ slug ~ '/center.webp') }}" alt="{{ product.name }} — {{ flavor }}" width="720" height="900" draggable="false" {{ 'fetchpriority=high' if loop.first else 'loading=lazy' }}></div></div>{% endfor %}
+    </div>
+  </div>
+    <div class="flavor-panels" aria-live="polite">
+      {% for product, flavor in ring %}<div class="flavor-panel {{ 'is-active' if loop.first }}" data-panel="{{ loop.index0 }}" {{ 'hidden' if not loop.first }}><span class="eyebrow flavor-count">{{ '%02d'|format(loop.index) }} / {{ '%02d'|format(ring|length) }}</span><h3><span>{{ product.short_name }}</span></h3><p class="flavor-name">{{ flavor }}</p><dl class="flavor-spec"><div><dt>Format</dt><dd>{{ product.format }}</dd></div><div><dt>Sample price</dt><dd>{{ product.options[0].price_usd|float|usd }}</dd></div></dl><a class="btn btn-dark" href="{{ url_for('products.detail', slug=product.slug, flavor=flavor) }}">View more <span>↗</span></a></div>{% endfor %}
+    </div>
+  </div>
+  <div class="flavor-controls"><button type="button" class="flavor-arrow" data-flavor-prev aria-label="Previous flavor">◀</button><a class="flavor-more" data-flavor-more href="{{ url_for('products.detail', slug=ring[0][0].slug, flavor=ring[0][1]) }}">View more</a><button type="button" class="flavor-arrow" data-flavor-next aria-label="Next flavor">▶</button></div>
+  <div class="flavor-thumbs section-shell" role="group" aria-label="Choose a product">{% for product, flavor in ring %}<button type="button" class="flavor-thumb {{ 'is-active' if loop.first }}" data-thumb="{{ loop.index0 }}" aria-label="{{ product.name }} — {{ flavor }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><img src="{{ url_for('static', filename='core/img/carousel/' ~ product.slug ~ '-' ~ flavor|lower ~ '/center.webp') }}" alt="" width="720" height="900" loading="lazy" draggable="false"></button>{% endfor %}</div>
+  <div class="collection-note section-shell"><span>ORIGINAL OR BALANCE. DRINK OR JELLY.</span><span>ONE RITUAL. ENDLESS POSSIBILITIES.</span></div>
+</section>
+<section class="moments-section"><div class="moments-image"><img src="{{ url_for('media', filename='reboot_beverage/reboot_beverage/original_beverage_all2.jpg') }}" loading="lazy" alt="Reboot lime, lemon, and cherry bottles together"><span class="image-stamp">THE GOOD KIND<br>OF <em>again.</em></span></div><div class="moments-copy reveal"><span class="eyebrow">REBOOT MOMENTS / 001</span><h2>FOR THE<br>PLANS.<br>AND THE<br><span class="outline-word">UNPLANNED.</span></h2><p>Your favorite people. A spontaneous playlist.<br>The little moments make the story.</p><a class="btn btn-light" href="{{ url_for('main.feed') }}">Step into our world <span>↗</span></a></div></section>
+<section class="vibe-banner section-shell reveal"><span class="vibe-symbol" aria-hidden="true">✳</span><div><span class="eyebrow">A LITTLE SELF-DISCOVERY, REBOOT STYLE</span><h2>WHAT’S YOUR<br><span class="serif-word">Reboot</span> VIBE?</h2><p>Three quick questions. One flavor of you.</p></div><a class="btn btn-dark" href="{{ url_for('main.vibe') }}">Find my vibe <span>↗</span></a><span class="vibe-time">30 SECONDS. ALL YOU.</span></section>
+<section class="game-banner section-shell reveal"><div class="game-banner-mark" aria-hidden="true"><img src="{{ url_for('static', filename='core/img/reboot-mark.webp') }}" alt="" width="480" height="270" loading="lazy"><i class="fruit lime"></i><i class="fruit lemon"></i><i class="fruit cherry"></i></div><div><span class="eyebrow">REBOOT ARCADE / NEW</span><h2>CATCH THE<br><span class="serif-word">fresh start.</span></h2><p>Lime, lemon, cherry. Dodge the snooze. Sixty seconds to beat your best.</p></div><a class="btn btn-neon" href="{{ url_for('main.game') }}">Play Reboot Catch <span>↗</span></a></section>
+<section class="feed-section section-shell"><div class="section-heading reveal"><div><span class="eyebrow">FRESH PERSPECTIVES</span><h2>THE REBOOT <span class="serif-word">edit.</span></h2></div><a class="inline-link" href="{{ url_for('main.feed') }}">View the feed <span>↗</span></a></div><div class="article-grid">{% for article in articles %}{{ article_card(article) }}{% endfor %}</div></section>
+<section class="where-strip section-shell reveal"><div><span class="eyebrow">NEXT STOP: YOUR EVERYDAY</span><h2>LET’S MAKE IT <span class="serif-word">a ritual.</span></h2></div><ul class="channel-list"><li><a href="{{ url_for('shop.index') }}"><strong>Reboot Shop</strong><span class="status-pill">Open · preview</span></a></li>{% for name in ['Amazon', 'Weee!', 'Yamibuy'] %}<li><strong>{{ name }}</strong><span class="status-pill neutral">Coming soon</span></li>{% endfor %}</ul><a class="btn btn-neon" href="{{ url_for('main.where_to_buy') }}">Where to find us <span>↗</span></a></section>
+{% endblock %}
+

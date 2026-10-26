@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "drink-original", "name": "Reboot Drink Original", "short_name": "Drink Original", "line": "Drink", "edition": "Original", "format": "Non-carbonated drink", "pack": "1 bottle or a box of 3", "tagline": "Big flavor. Fresh perspective.", "description": "Meet your new plus-one. A non-carbonated drink with a bold burst of fruit flavor, made for the little rituals between your plans.", "flavors": ["Lime", "Lemon", "Cherry"], "default_flavor": "Lime", "color": "lime", "ingredients": ["A-HAT", "Hovenia dulcis fruit"], "price_is_sample": true, "is_balance": false,
+    "options": [{"sku":"drink-original-single","label":"1 Bottle","unit_count":1,"price_usd":"7.00"},{"sku":"drink-original-box3","label":"Box of 3","unit_count":3,"price_usd":"19.00"}],
+    "images": {"Lime":"reboot_beverage/reboot_beverage/lime_flavored_original_beverage1.jpg","Lemon":"reboot_beverage/reboot_beverage/lemon_flavored_original_beverage1.jpg","Cherry":"reboot_beverage/reboot_beverage/Cherry_flavored_original_beverage1.jpg"},
+    "lifestyle":"reboot_beverage/reboot_beverage/original_beverage_all2.jpg"
+  },
+  {
+    "slug": "jelly-original", "name": "Reboot Jelly Original", "short_name": "Jelly Original", "line": "Jelly", "edition": "Original", "format": "Individually wrapped jelly", "pack": "1 pouch", "tagline": "A little bite. A whole new vibe.", "description": "Pocket-sized flavor for whatever is next. Discover our original jelly collection in three fruit flavors, individually wrapped for easy, everyday moments.", "flavors": ["Cherry", "Lime", "Lemon"], "default_flavor": "Cherry", "color": "cherry", "ingredients": ["A-HAT", "Hovenia dulcis fruit"], "price_is_sample": true, "is_balance": false,
+    "options": [{"sku":"jelly-original-pouch","label":"1 Pouch","unit_count":1,"price_usd":"16.00"}],
+    "images": {"Lime":"jelly_3D/products/original_lime.webp","Lemon":"jelly_3D/products/original_lemon.webp","Cherry":"jelly_3D/products/original_cherry.webp"},
+    "lifestyle":"Reboot_Jelly/Reboot_Jelly_Image/오리지널_패키지.jpg"
+  },
+  {
+    "slug": "drink-balance", "name": "Reboot Drink Balance", "short_name": "Drink Balance", "line": "Drink", "edition": "Balance", "format": "Non-carbonated drink", "pack": "1 bottle or a box of 3", "tagline": "Find a different kind of flow.", "description": "Your ritual, remixed. Explore the Balance drink collection in lime, lemon, and cherry, in a single bottle or a box made for sharing.", "flavors": ["Lemon", "Lime", "Cherry"], "default_flavor": "Lemon", "color": "lemon", "ingredients": ["A-HAT", "Hovenia dulcis fruit"], "price_is_sample": true, "is_balance": true,
+    "options": [{"sku":"drink-balance-single","label":"1 Bottle","unit_count":1,"price_usd":"8.00"},{"sku":"drink-balance-box3","label":"Box of 3","unit_count":3,"price_usd":"22.00"}],
+    "images": {"Lime":"reboot_beverage/reboot_beverage/lime_flavored_balance_beverage1.jpg","Lemon":"reboot_beverage/reboot_beverage/lemon_flavored_balance_beverage1.jpg","Cherry":"reboot_beverage/reboot_beverage/cherry_flavored_balance_beverage1.jpg"},
+    "lifestyle":"reboot_beverage/reboot_beverage/balance_beverage1.jpg"
+  },
+  {
+    "slug": "jelly-balance", "name": "Reboot Jelly Balance", "short_name": "Jelly Balance", "line": "Jelly", "edition": "Balance", "format": "Individually wrapped jelly", "pack": "1 pouch", "tagline": "Small ritual. Your own rhythm.", "description": "Make a little room for you. The Balance jelly collection brings three fruit flavors to an easy-to-carry pouch. Pick your flavor and make it your own.", "flavors": ["Lime", "Lemon", "Cherry"], "default_flavor": "Lime", "color": "mint", "ingredients": ["A-HAT", "Hovenia dulcis fruit"], "price_is_sample": true, "is_balance": true,
+    "options": [{"sku":"jelly-balance-pouch","label":"1 Pouch","unit_count":1,"price_usd":"18.00"}],
+    "images": {"Lime":"jelly_3D/products/balance_lime.webp","Lemon":"jelly_3D/products/balance_lemon.webp","Cherry":"jelly_3D/products/balance_cherry.webp"},
+    "lifestyle":"Reboot_Jelly/Reboot_Jelly_Image/벨런스_패키지.jpg"
+  }
+]
+

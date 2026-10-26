@@ -1,0 +1,3 @@
+{% extends 'core/base.html' %}{% block title %}{{ article.title }}{% endblock %}
+{% block content %}<article class="section-shell page-section"><a class="back-link" href="{{ url_for('main.feed') }}">← Back to the edit</a><div class="page-intro"><span class="eyebrow">{{ article.category }}</span><h1 class="article-title">{{ article.title }}</h1><p>{{ article.description }}</p></div><img class="article-hero" src="{{ url_for('media', filename=article.image) }}" alt="Reboot collection"><div class="article-body">{% for paragraph in article.body %}<p>{{ paragraph }}</p>{% endfor %}<a class="btn btn-neon" href="{{ url_for('products.index') }}">Explore the collection <span>↗</span></a></div></article>{% endblock %}
+

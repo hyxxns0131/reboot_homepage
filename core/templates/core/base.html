@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="{{ locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Meet Reboot by ALDICOM. Discover Original and Balance drinks and jellies in lime, lemon, and cherry. Restart your day, your way.">
+  <meta name="theme-color" content="#101010">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Reboot by ALDICOM">
+  <meta property="og:title" content="{{ self.title() }} · Reboot">
+  <meta property="og:description" content="Original and Balance drinks and jellies in lime, lemon, and cherry. Restart your day, your way.">
+  <meta property="og:url" content="{{ request.base_url }}">
+  <meta property="og:image" content="{{ url_for('media', filename='brand/reboot_og.jpg', _external=True) }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="{{ request.base_url }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>{% block title %}Reboot — Restart Your Day{% endblock %} · ALDICOM US</title>
+  <link rel="icon" href="{{ url_for('static', filename='core/img/favicon.png') }}" type="image/png">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='core/img/apple-touch-icon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='core/css/site.css') }}">
+  <script src="{{ url_for('static', filename='core/js/site.js') }}" defer></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a href="{{ url_for('main.home') }}" class="brand-logo" aria-label="Reboot home"><img src="{{ url_for('static', filename='core/img/reboot-logo-on-dark.webp') }}" alt="Reboot" width="1400" height="404"></a>
+  <nav class="desktop-nav" aria-label="Main navigation">
+    <a href="{{ url_for('main.story') }}" {% if request.endpoint == 'main.story' %}aria-current="page"{% endif %}>About <span>↗</span></a>
+    <a href="{{ url_for('products.index') }}" {% if request.blueprint == 'products' %}aria-current="page"{% endif %}>Products</a>
+    <a href="{{ url_for('shop.index') }}" {% if request.endpoint == 'shop.index' %}aria-current="page"{% endif %}>Shop</a>
+    <a href="{{ url_for('main.feed') }}">Feed</a>
+    <a href="{{ url_for('main.where_to_buy') }}">Where to buy</a>
+    <a class="nav-vibe" href="{{ url_for('main.vibe') }}">Vibe test <span>✳</span></a>
+    <a href="{{ url_for('main.creators') }}">Creators</a>
+    <a href="{{ url_for('main.contact') }}">Contact</a>
+  </nav>
+  <div class="header-account">
+    <form class="language-switch" method="post" action="{{ url_for('main.language') }}" aria-label="Language / 언어"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="next" value="{{ request.full_path }}"><button type="submit" name="language" value="en" lang="en" aria-label="English" aria-pressed="{{ 'true' if locale == 'en' else 'false' }}">EN</button><span>/</span><button type="submit" name="language" value="ko" lang="ko" aria-label="한국어" aria-pressed="{{ 'true' if locale == 'ko' else 'false' }}">KO</button></form>
+  {% if current_user.is_authenticated %}
+    <a class="account-link" href="{{ url_for('admin.dashboard') if current_user.role == 'admin' else url_for('shop.orders') }}">{{ 'Admin' if current_user.role == 'admin' else 'My orders' }}</a>
+    <form action="{{ url_for('auth.logout') }}" method="post" class="logout-form"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="text-button" type="submit">Logout</button></form>
+  {% else %}
+    <a class="account-link" href="{{ url_for('auth.login') }}">Login <span>↗</span></a>
+  {% endif %}
+  {% if not current_user.is_authenticated or current_user.role == 'customer' %}
+    <a class="bag-link" href="{{ url_for('shop.cart') }}" aria-label="Shopping bag, {{ cart_count }} items"><svg width="19" height="21" viewBox="0 0 20 22" fill="none" aria-hidden="true"><path d="M3 7h14l1 13H2L3 7Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 8V5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.5"/></svg><span>{{ cart_count }}</span></a>
+  {% endif %}
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</header>
+<nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
+  <a href="{{ url_for('main.story') }}">About <span>↗</span></a><a href="{{ url_for('products.index') }}">Products <span>↗</span></a><a href="{{ url_for('shop.index') }}">Shop <span>↗</span></a><a href="{{ url_for('main.feed') }}">Feed <span>↗</span></a><a href="{{ url_for('main.where_to_buy') }}">Where to buy <span>↗</span></a><a href="{{ url_for('main.vibe') }}">Vibe test <span>↗</span></a><a href="{{ url_for('main.game') }}">Reboot Catch <span>↗</span></a><a href="{{ url_for('main.creators') }}">Creators <span>↗</span></a><a href="{{ url_for('main.contact') }}">Contact <span>↗</span></a>
+  {% if not current_user.is_authenticated %}<a href="{{ url_for('auth.register') }}">Join the crew <span>↗</span></a>{% endif %}
+  {% if current_user.is_authenticated %}<form class="mobile-logout" method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button type="submit">Logout ↗</button></form>{% endif %}
+</nav>
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack" aria-live="polite">{% for category, message in messages %}<div class="flash {{ category }}"><span>{{ message }}</span><button type="button" aria-label="Dismiss notification" data-dismiss>×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+<main id="main">{% block content %}{% endblock %}</main>
+<footer class="site-footer">
+  <div class="footer-top"><div><a class="brand-logo footer-logo" href="{{ url_for('main.home') }}" aria-label="Reboot home"><img src="{{ url_for('static', filename='core/img/reboot-logo-on-dark.webp') }}" alt="Reboot" width="1400" height="404" loading="lazy"></a><p>A little ritual. A new beginning.<br>From ALDICOM, with a fresh perspective.</p></div><div class="footer-links"><div><span>EXPLORE</span><a href="{{ url_for('products.index') }}">Our collection</a><a href="{{ url_for('main.story') }}">Our story</a><a href="{{ url_for('main.vibe') }}">Find your vibe</a><a href="{{ url_for('main.game') }}">Play Reboot Catch</a></div><div><span>LET’S CONNECT</span><a href="{{ url_for('main.creators') }}">For creators ↗</a><a href="{{ url_for('main.contact') }}">Get in touch ↗</a><a href="{{ url_for('main.where_to_buy') }}">Where to buy ↗</a></div><div><span>YOUR REBOOT</span><a href="{{ url_for('auth.register') }}">Join the crew</a><a href="{{ url_for('shop.orders') }}">My orders</a><button class="motion-toggle text-button" type="button" aria-pressed="false">Pause motion Ⅱ</button></div></div></div>
+  <div class="footer-statement" aria-hidden="true">RESTART YOUR DAY<span>↗</span></div>
+  <div class="footer-bottom"><span>© 2026 ALDICOM. Reboot US.</span><div><a href="{{ url_for('main.legal', page='privacy') }}">Privacy</a><a href="{{ url_for('main.legal', page='terms') }}">Terms</a><a href="{{ url_for('main.legal', page='cookies') }}">Cookies</a></div><span>FOR ADULTS 21+ &nbsp; · &nbsp; USA / EN</span></div>
+  <p class="footer-disclaimer">Brand preview. All prices are sample prices in USD. Checkout is a simulation: no charges or shipments. Product details and packaging are subject to final review.</p>
+</footer>
+</body>
+</html>
+
